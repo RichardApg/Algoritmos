@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cmath>
+
+// Return 1 si n es primo, 0 si no lo es.
+bool es_primo(int n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return false;
+    }
+    return true;
+}
+
+void numeros_perfectos(int NUM) {
+    int cantidad = 0;
+    std::cout << "Los números perfectos entre 1 y " << NUM << " son: ";
+    for (int n = 2; n < 32; n++) {  // Solo se conocen números perfectos para n < 32
+        long long p = pow(2, n - 1) * (pow(2, n) - 1); // Se calcula el número perfecto correspondiente al valor actual de n. Aplicando la formula 2^(n - 1) por (2^n - 1)
+        if (p > NUM) break;
+        if (es_primo(pow(2, n) - 1)) {
+            std::cout << p << " ";
+            cantidad++;
+        }
+    }
+    std::cout << "\nNúmeros perfectos dentro del intervalo es: " << cantidad << "\n";
+}
+
+int main() {
+    int NUM;
+    std::cout << "Ingrese un número: ";
+    std::cin >> NUM;
+    numeros_perfectos(NUM);
+    return 0;
+}
